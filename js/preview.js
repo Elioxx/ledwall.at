@@ -28,7 +28,9 @@ function renderGrid() {
   const stageH        = scaleStage.clientHeight || 190;
   const stageW        = scaleStage.clientWidth  || 320;
   const humanReserveW = 46;
-  const maxWallH      = stageH;
+  // 6px = .scale-stage top padding; 24px = .wall-dim label below grid (7px margin + text)
+  // subtracting both prevents the wall from being clipped by overflow:hidden on .led-preview
+  const maxWallH      = Math.max(50, stageH - 6 - 24);
   const maxWallW      = Math.max(60, stageW - humanReserveW);
 
   // Total height from floor to top of wall must fit in the stage
