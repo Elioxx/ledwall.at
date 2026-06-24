@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>LED Wand Konfigurator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/preview.css">
+<link rel="stylesheet" href="css/ui.css">
+</head>
+<body>
+<div class="bgglow"></div>
+<div class="wrap">
+
+  <!-- ═══════════ HEADER / LIVE PREVIEW ═══════════ -->
+  <div class="hero">
+    <div class="brand">
+      <div class="brand-mark">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+      <div class="brand-name">LED<b>WAND</b> Konfigurator</div>
+    </div>
+
+    <div class="led-preview">
+      <div class="scale-stage" id="scaleStage">
+        <div class="wall-unit" id="wallUnit">
+          <div class="grid-stage" id="gridStage"></div>
+          <div class="wall-dim" id="wallDim">4,0 × 2,5 m</div>
+        </div>
+        <div class="human-unit" id="humanUnit">
+          <img id="humanImg" src="assets/human.png" alt="Maßstab">
+        </div>
+      </div>
+      <div class="preview-meta">
+        <span>LIVE VORSCHAU – MAßSTABSGETREU</span>
+        <span>Auflösung: <span class="val" id="metaRes">–</span></span>
+      </div>
+    </div>
+
+    <h1>Ihre LED Wand in 60 Sekunden</h1>
+    <p>Keine Fachbegriffe nötig — sagen Sie uns einfach, wo, wie groß und für wen. Den Rest berechnen wir.</p>
+  </div>
+
+  <div class="progress-row" id="progressRow"></div>
+
+  <!-- ═══════════ STEP 1: Einsatzort ═══════════ -->
+  <div class="step" data-step="location">
+    <span class="eyebrow step-eyebrow"></span>
+    <h2>Wo kommt die Wand zum Einsatz?</h2>
+    <p class="sub">Das entscheidet über Helligkeit und Wetterschutz.</p>
+    <div class="opt-grid two" id="optLocation">
+      <div class="opt" data-value="indoor">
+        <div class="ic">🏠</div>
+        <div class="lbl">Innen</div>
+        <div class="desc">Messe, Laden, Bühne, Empfang</div>
+      </div>
+      <div class="opt" data-value="outdoor">
+        <div class="ic">🌤️</div>
+        <div class="lbl">Außen</div>
+        <div class="desc">Platz, Fassade, Open-Air</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ STEP 2: Einsatzzweck ═══════════ -->
+  <div class="step" data-step="purpose">
+    <span class="eyebrow step-eyebrow"></span>
+    <h2>Wofür nutzen Sie die Wand?</h2>
+    <p class="sub">Hilft uns, die passende Bauweise vorzuschlagen.</p>
+    <div class="opt-grid" id="optPurpose">
+      <div class="opt" data-value="event">
+        <div class="ic">🎤</div>
+        <div><div class="lbl">Event / Messe</div><div class="desc">Kurzzeitig, oft gemietet</div></div>
+        <div class="check">✓</div>
+      </div>
+      <div class="opt" data-value="stage">
+        <div class="ic">🎸</div>
+        <div><div class="lbl">Bühne / Konzert</div><div class="desc">Show, hohe Bildqualität</div></div>
+        <div class="check">✓</div>
+      </div>
+      <div class="opt" data-value="retail">
+        <div class="ic">🛍️</div>
+        <div><div class="lbl">Laden / Werbung</div><div class="desc">Dauerinstallation, Schaufenster</div></div>
+        <div class="check">✓</div>
+      </div>
+      <div class="opt" data-value="corporate">
+        <div class="ic">🏢</div>
+        <div><div class="lbl">Empfang / Büro</div><div class="desc">Lobby, Konferenzraum</div></div>
+        <div class="check">✓</div>
+      </div>
+      <div class="opt" data-value="other">
+        <div class="ic">✨</div>
+        <div><div class="lbl">Etwas anderes</div><div class="desc">Sonderprojekt</div></div>
+        <div class="check">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ STEP 3: Betrachtungsabstand ═══════════ -->
+  <div class="step" data-step="distance">
+    <span class="eyebrow step-eyebrow"></span>
+    <h2>Wie nah kommen Zuschauer der Wand?</h2>
+    <p class="sub">Der typische Mindestabstand des Publikums — nicht die Raumgröße.</p>
+    <div class="slider-block">
+      <div class="slider-readout" id="distReadout">5<small>Meter</small></div>
+      <div class="slider-caption" id="distCaption">Normaler Messestand-Abstand</div>
+      <input type="range" id="distSlider" min="1" max="30" value="5" step="1">
+      <div class="range-labels"><span>1 m</span><span>30+ m</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ STEP 4: Größe ═══════════ -->
+  <div class="step" data-step="size">
+    <span class="eyebrow step-eyebrow"></span>
+    <h2>Wie groß soll die Wand sein?</h2>
+    <p class="sub">Schätzen reicht völlig — wir runden auf passende Module.</p>
+    <div class="slider-block">
+      <div class="dual-slider">
+        <div class="dual-label"><span>Breite</span><b id="widthVal">4.0 m</b></div>
+        <input type="range" id="widthSlider" min="1" max="15" value="4" step="0.5">
+      </div>
+      <div class="dual-slider">
+        <div class="dual-label"><span>Höhe</span><b id="heightVal">2.5 m</b></div>
+        <input type="range" id="heightSlider" min="1" max="8" value="2.5" step="0.5">
+      </div>
+      <div class="range-labels" style="margin-top:16px;">
+        <span>Gesamtfläche</span>
+        <span class="val" id="areaVal" style="color:var(--accent); font-family:'JetBrains Mono',monospace;">10.0 m²</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ STEP 5: Montagehöhe ═══════════ -->
+  <div class="step" data-step="mountHeight">
+    <span class="eyebrow step-eyebrow"></span>
+    <h2>Wie hoch über dem Boden hängt die Wand?</h2>
+    <p class="sub">Die Unterkante der Wand — wichtig für Sichtlinien und Befestigung.</p>
+    <div class="slider-block">
+      <div class="slider-readout" id="mountHReadout">0,0<small>Meter</small></div>
+      <div class="slider-caption" id="mountHCaption">Direkt auf dem Boden stehend</div>
+      <input type="range" id="mountHSlider" min="0" max="6" value="0" step="0.25">
+      <div class="range-labels"><span>0 m</span><span>6 m</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ STEP 6: Himmelsrichtung (nur outdoor) ═══════════ -->
+  <div class="step" data-step="orientation">
+    <span class="eyebrow step-eyebrow"></span>
+    <h2>In welche Richtung zeigt die Wand?</h2>
+    <p class="sub">Wichtig bei Außenwänden, da Sonneneinstrahlung die Lesbarkeit beeinflusst.</p>
+    <div class="opt-grid two" id="optOrientation">
+      <div class="opt" data-value="n"><div class="ic">⬆️</div><div class="lbl">Norden</div><div class="check">✓</div></div>
+      <div class="opt" data-value="ne"><div class="ic">↗️</div><div class="lbl">Nordosten</div><div class="check">✓</div></div>
+      <div class="opt" data-value="e"><div class="ic">➡️</div><div class="lbl">Osten</div><div class="check">✓</div></div>
+      <div class="opt" data-value="se"><div class="ic">↘️</div><div class="lbl">Südosten</div><div class="check">✓</div></div>
+      <div class="opt" data-value="s"><div class="ic">⬇️</div><div class="lbl">Süden</div><div class="check">✓</div></div>
+      <div class="opt" data-value="sw"><div class="ic">↙️</div><div class="lbl">Südwesten</div><div class="check">✓</div></div>
+      <div class="opt" data-value="w"><div class="ic">⬅️</div><div class="lbl">Westen</div><div class="check">✓</div></div>
+      <div class="opt" data-value="nw"><div class="ic">↖️</div><div class="lbl">Nordwesten</div><div class="check">✓</div></div>
+    </div>
+    <p class="sub" style="margin-top:14px;">Unsicher? Kein Problem, einfach die ungefähre Richtung wählen.</p>
+  </div>
+
+  <!-- ═══════════ STEP 7: Mieten / Kaufen ═══════════ -->
+  <div class="step" data-step="model">
+    <span class="eyebrow step-eyebrow"></span>
+    <h2>Mieten oder kaufen?</h2>
+    <p class="sub">Bei kurzfristigem Bedarf lohnt sich meist die Miete.</p>
+    <div class="opt-grid two" id="optModel">
+      <div class="opt" data-value="rent"><div class="ic">📅</div><div class="lbl">Mieten</div><div class="desc">Tage / Wochen</div></div>
+      <div class="opt" data-value="buy"><div class="ic">🏗️</div><div class="lbl">Kaufen</div><div class="desc">Feste Installation</div></div>
+    </div>
+    <div id="rentDaysWrap" style="display:none; margin-top:16px;">
+      <div class="slider-block">
+        <div class="slider-readout" id="daysReadout">3<small>Tage</small></div>
+        <div class="slider-caption">Mietdauer inkl. Auf-/Abbau</div>
+        <input type="range" id="daysSlider" min="1" max="30" value="3" step="1">
+        <div class="range-labels"><span>1 Tag</span><span>30 Tage</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ STEP 8: Montage / Aufbau ═══════════ -->
+  <div class="step" data-step="installation">
+    <span class="eyebrow step-eyebrow"></span>
+    <h2>Wie soll die Wand befestigt werden?</h2>
+    <p class="sub">Nur eine Einschätzung — die Technik klären wir später im Detail.</p>
+    <div class="opt-grid two" id="optMountType">
+      <div class="opt" data-value="wall"><div class="ic">🧱</div><div class="lbl">An Wand</div></div>
+      <div class="opt" data-value="ground"><div class="ic">🪜</div><div class="lbl">Freistehend / Boden</div></div>
+      <div class="opt" data-value="truss"><div class="ic">🏗️</div><div class="lbl">Hängend / Traverse</div></div>
+      <div class="opt" data-value="facade"><div class="ic">🏢</div><div class="lbl">Fassade / Dach</div></div>
+    </div>
+    <p class="sub" style="margin-top:22px; margin-bottom:10px;">Ist bereits eine Halterung oder Unterkonstruktion vorhanden?</p>
+    <div class="opt-grid two" id="optStructure">
+      <div class="opt" data-value="yes"><div class="ic">✅</div><div class="lbl">Ja</div></div>
+      <div class="opt" data-value="no"><div class="ic">➖</div><div class="lbl">Nein</div></div>
+      <div class="opt" data-value="unsure"><div class="ic">❔</div><div class="lbl">Weiß ich nicht</div></div>
+    </div>
+    <div class="field" style="margin-top:22px;">
+      <label>Aufbauort (Adresse oder Ort, optional)</label>
+      <input type="text" id="inpLocation" placeholder="z. B. Marktplatz, Musterstadt">
+    </div>
+  </div>
+
+  <!-- ═══════════ STEP 9: Kontakt ═══════════ -->
+  <div class="step" data-step="contact">
+    <span class="eyebrow step-eyebrow"></span>
+    <h2>Letzter Schritt — wohin mit dem Angebot?</h2>
+    <p class="sub">Wir senden Ihnen die Detailkalkulation. Keine Spam-Anrufe, versprochen.</p>
+    <div class="field">
+      <label>Name</label>
+      <input type="text" id="inpName" placeholder="Max Mustermann">
+    </div>
+    <div class="field">
+      <label>Firma (optional)</label>
+      <input type="text" id="inpCompany" placeholder="Mustermann GmbH">
+    </div>
+    <div class="field">
+      <label>E-Mail</label>
+      <input type="email" id="inpEmail" placeholder="max@firma.de">
+    </div>
+    <div class="field">
+      <label>Telefon (optional)</label>
+      <input type="tel" id="inpPhone" placeholder="+49 ...">
+    </div>
+  </div>
+
+  <!-- ═══════════ RESULT ═══════════ -->
+  <div class="step" data-step="result">
+    <span class="eyebrow">Ihr Ergebnis</span>
+    <h2 id="resultHeadline">Ihre individuelle Einschätzung</h2>
+    <p class="sub">Unverbindlich &amp; automatisch berechnet — ein Mensch prüft das final.</p>
+
+    <div class="offer-card">
+      <div class="offer-top">
+        <div>
+          <div class="tag">GESCHÄTZTER PREIS</div>
+          <div class="offer-price" id="offerPrice">– €<small id="offerPriceUnit"></small></div>
+          <div class="offer-sub" id="offerSub"></div>
+        </div>
+      </div>
+      <div class="spec-list" id="specList"></div>
+    </div>
+
+    <div class="disclaimer">
+      <b>Hinweis:</b> Dies ist eine automatische Richtpreis-Schätzung auf Basis Ihrer Angaben.
+      Die finale Bestätigung inkl. Verfügbarkeit erfolgt nach Prüfung durch unser Team —
+      derzeit ohne Versand, das folgt in der nächsten Ausbaustufe (E-Mail / SMS-Verifizierung).
+    </div>
+
+    <button class="restart" id="restartBtn">Konfiguration neu starten</button>
+  </div>
+
+  <!-- ═══════════ NAV BUTTONS ═══════════ -->
+  <div class="nav-row" id="navRow">
+    <button class="btn btn-ghost" id="backBtn">←</button>
+    <button class="btn btn-primary" id="nextBtn">Weiter</button>
+  </div>
+
+</div>
+
+<!-- JS — load order matters: state → pricing → navigation → validation → selectors → sliders → preview → offer → main -->
+<script src="js/state.js"></script>
+<script src="js/pricing.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/selectors.js"></script>
+<script src="js/sliders.js"></script>
+<script src="js/preview.js"></script>
+<script src="js/offer.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

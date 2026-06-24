@@ -1,0 +1,117 @@
+/* CLAUDE: Styles for the live LED wall preview widget (top of page).
+   Covers: hero/brand header, .led-preview container, .scale-stage layout,
+   .wall-unit + .grid-stage (the animated LED pixel grid), .human-unit silhouette,
+   and .preview-meta readout bar.
+   The @keyframes sweep is the shimmer animation on the grid. */
+
+/* — HERO / BRAND — */
+.hero { padding: 28px 0 14px; }
+
+.brand { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.brand-mark {
+  width: 30px; height: 30px; border-radius: 7px;
+  background: linear-gradient(135deg, var(--accent), #0a8f7e);
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 5px;
+}
+.brand-mark span { background: rgba(0,0,0,0.35); border-radius: 1px; }
+.brand-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.2px; }
+.brand-name b { color: var(--accent); }
+
+/* — LED PREVIEW BOX — */
+.led-preview {
+  position: relative;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #000, #050505);
+  border: 1px solid var(--line);
+  padding: 18px;
+  overflow: hidden;
+}
+.led-preview::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px,
+    transparent 1px, transparent 3px
+  );
+  pointer-events: none;
+}
+
+/* — SCALE STAGE (wall + human side by side) — */
+.scale-stage {
+  display: flex; align-items: flex-end; justify-content: center;
+  gap: 18px; height: 190px; padding: 6px 4px 0;
+}
+
+.wall-unit {
+  position: relative; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center;
+}
+.wall-unit .grid-stage {
+  border: 2px solid #2b2f37;
+  border-bottom: 3px solid #3a3f49;
+  box-shadow: 0 0 0 1px rgba(0,224,198,0.08), 0 8px 24px -6px rgba(0,224,198,0.18);
+}
+.wall-dim {
+  margin-top: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; color: var(--muted); white-space: nowrap;
+}
+
+.human-unit {
+  flex-shrink: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-end; height: 100%;
+}
+.human-unit img {
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+  height: 100%; width: auto;
+}
+.human-label {
+  margin-top: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; color: var(--accent); white-space: nowrap;
+}
+
+/* — LED PIXEL GRID — */
+.grid-stage {
+  display: grid; gap: 2px; border-radius: 4px;
+  overflow: hidden; position: relative; background: #020404;
+}
+.grid-stage::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.07) 45%, transparent 60%);
+  background-size: 220% 220%;
+  animation: sweep 5s linear infinite;
+  mix-blend-mode: screen; pointer-events: none;
+}
+@keyframes sweep {
+  0%   { background-position: 120% 0%; }
+  100% { background-position: -20% 100%; }
+}
+
+.cell {
+  background: var(--cell-color, #0a1c19);
+  border-radius: 0px;
+  transition: background 0.6s ease, opacity 0.6s ease;
+}
+
+/* — METADATA BAR — */
+.preview-meta {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-top: 14px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted);
+}
+.preview-meta .val { color: var(--accent); font-weight: 500; }
+
+/* — HERO TEXT — */
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px; line-height: 1.15; font-weight: 600;
+  margin: 20px 0 6px; letter-spacing: -0.3px;
+}
+.hero p { color: var(--muted); font-size: 14.5px; line-height: 1.5; margin: 0; }
+
+@media (min-width: 480px) {
+  .hero h1 { font-size: 28px; }
+}
