@@ -1,278 +1,140 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de-AT">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>LED Wand Konfigurator</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/preview.css">
-<link rel="stylesheet" href="css/ui.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LED-Wand kaufen in Österreich – als fertiges Komplettpaket | ledwall.at</title>
+<meta name="description" content="LED-Wände als aufbaufertiges Paket: Cabinets, Controller, Montage-Set und Kabel in einer Lieferung. Preis sofort im Konfigurator berechnen.">
+<link rel="stylesheet" href="css/site.css">
+<style>
+  .hero-wall { width: min(900px, 76vw); }
+  .hero-figure { height: calc(min(900px, 76vw) * 0.425); width: auto; }
+</style>
 </head>
 <body>
-<div class="bgglow"></div>
-<div class="wrap">
+<main id="inhalt">
 
-  <!-- ═══════════ HEADER / LIVE PREVIEW ═══════════ -->
-  <div class="hero">
-    <div class="brand">
-      <div class="brand-mark">
-        <span></span><span></span><span></span>
-        <span></span><span></span><span></span>
-        <span></span><span></span><span></span>
-      </div>
-      <div class="brand-name">LED<b>WAND</b> Konfigurator</div>
-    </div>
-
-    <div class="led-preview">
-      <div class="scale-stage" id="scaleStage">
-        <div class="wall-unit" id="wallUnit">
-          <div class="grid-stage" id="gridStage"></div>
-          <div class="wall-dim" id="wallDim">4,0 × 2,5 m</div>
-        </div>
-        <div class="human-unit" id="humanUnit">
-          <img id="humanImg" src="assets/human.png" alt="Maßstab">
-        </div>
-      </div>
-      <div class="preview-meta">
-        <span>LIVE VORSCHAU – MAßSTABSGETREU</span>
-        <span>Auflösung: <span class="val" id="metaRes">–</span></span>
+  <div class="stage">
+    <div class="wrap">
+      <div class="stage-inner">
+        <div class="stage-wall hero-wall"><canvas id="heroWall" role="img" aria-label="Animierte Darstellung einer LED-Wand aus 32 Cabinets, 4 mal 2 Meter"></canvas></div>
+        <img class="stage-figure hero-figure" src="assets/human.png" alt="" width="318" height="1118">
       </div>
     </div>
-
-    <h1>Ihre LED Wand in 60 Sekunden</h1>
-    <p>Keine Fachbegriffe nötig — sagen Sie uns einfach, wo, wie groß und für wen. Den Rest berechnen wir.</p>
+    <div class="stage-floor"></div>
+    <div class="wrap stage-caption">
+      <span>Maßstabsgetreu: 4 × 2 m aus 32 Cabinets, daneben eine Person mit 1,70 m</span>
+      <span id="heroPrice"></span>
+    </div>
   </div>
 
-  <div class="progress-row" id="progressRow"></div>
-
-  <!-- ═══════════ STEP 1: Einsatzort ═══════════ -->
-  <div class="step" data-step="location">
-    <span class="eyebrow step-eyebrow"></span>
-    <h2>Wo kommt die Wand zum Einsatz?</h2>
-    <p class="sub">Das entscheidet über Helligkeit und Wetterschutz.</p>
-    <div class="opt-grid two" id="optLocation">
-      <div class="opt" data-value="indoor">
-        <div class="ic">🏠</div>
-        <div class="lbl">Innen</div>
-        <div class="desc">Messe, Laden, Bühne, Empfang</div>
-      </div>
-      <div class="opt" data-value="outdoor">
-        <div class="ic">🌤️</div>
-        <div class="lbl">Außen</div>
-        <div class="desc">Platz, Fassade, Open-Air</div>
+  <div class="wrap hero-text">
+    <h1>LED-Wände als fertiges Paket. Auspacken, zusammenstecken, einschalten.</h1>
+    <div>
+      <p class="lead">Du sagst uns Größe und Einsatzort. Wir liefern alles, was die Wand zum Laufen braucht, in einer Sendung nach ganz Österreich. Den Preis siehst du sofort.</p>
+      <div class="btn-row">
+        <a class="btn btn-main" href="konfigurator.html">Wand konfigurieren</a>
+        <a class="btn" href="pakete.html">Fertige Pakete ansehen</a>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════ STEP 2: Einsatzzweck ═══════════ -->
-  <div class="step" data-step="purpose">
-    <span class="eyebrow step-eyebrow"></span>
-    <h2>Wofür nutzen Sie die Wand?</h2>
-    <p class="sub">Hilft uns, die passende Bauweise vorzuschlagen.</p>
-    <div class="opt-grid" id="optPurpose">
-      <div class="opt" data-value="event">
-        <div class="ic">🎤</div>
-        <div><div class="lbl">Event / Messe</div><div class="desc">Kurzzeitig, oft gemietet</div></div>
-        <div class="check">✓</div>
+  <section class="wrap">
+    <div class="inbox">
+      <div>
+        <h3>Eine Lieferung, nichts fehlt</h3>
+        <p>Cabinets, Controller, Montage-Set, alle Kabel und Ersatzteile. Du musst nichts dazubestellen und nichts zusammensuchen.</p>
       </div>
-      <div class="opt" data-value="stage">
-        <div class="ic">🎸</div>
-        <div><div class="lbl">Bühne / Konzert</div><div class="desc">Show, hohe Bildqualität</div></div>
-        <div class="check">✓</div>
+      <div>
+        <h3>Kein Importabenteuer</h3>
+        <p>Keine Verhandlungen mit Fabriken, keine Zollabwicklung, keine Anleitung in gebrochenem Englisch. Du kaufst bei einem österreichischen Händler.</p>
       </div>
-      <div class="opt" data-value="retail">
-        <div class="ic">🛍️</div>
-        <div><div class="lbl">Laden / Werbung</div><div class="desc">Dauerinstallation, Schaufenster</div></div>
-        <div class="check">✓</div>
-      </div>
-      <div class="opt" data-value="corporate">
-        <div class="ic">🏢</div>
-        <div><div class="lbl">Empfang / Büro</div><div class="desc">Lobby, Konferenzraum</div></div>
-        <div class="check">✓</div>
-      </div>
-      <div class="opt" data-value="other">
-        <div class="ic">✨</div>
-        <div><div class="lbl">Etwas anderes</div><div class="desc">Sonderprojekt</div></div>
-        <div class="check">✓</div>
+      <div>
+        <h3>Preise, die auf der Seite stehen</h3>
+        <p>Kein „Preis auf Anfrage“. Jede Größe und jeder Pixelpitch ist im Konfigurator durchgerechnet, Position für Position.</p>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ═══════════ STEP 3: Betrachtungsabstand ═══════════ -->
-  <div class="step" data-step="distance">
-    <span class="eyebrow step-eyebrow"></span>
-    <h2>Wie nah kommen Zuschauer der Wand?</h2>
-    <p class="sub">Der typische Mindestabstand des Publikums — nicht die Raumgröße.</p>
-    <div class="slider-block">
-      <div class="slider-readout" id="distReadout">5<small>Meter</small></div>
-      <div class="slider-caption" id="distCaption">Normaler Messestand-Abstand</div>
-      <input type="range" id="distSlider" min="1" max="30" value="5" step="1">
-      <div class="range-labels"><span>1 m</span><span>30+ m</span></div>
+  <section class="wrap">
+    <div class="sec-head">
+      <h2>Beliebte Pakete</h2>
+      <p class="lead">Fertig zusammengestellt für typische Einsätze. Jedes Paket lässt sich im Konfigurator anpassen.</p>
     </div>
-  </div>
+    <div class="pk-grid" data-pakete="3"></div>
+    <p style="margin-top:20px"><a href="pakete.html"><b>Alle Pakete ansehen</b></a></p>
+  </section>
 
-  <!-- ═══════════ STEP 4: Größe ═══════════ -->
-  <div class="step" data-step="size">
-    <span class="eyebrow step-eyebrow"></span>
-    <h2>Wie groß soll die Wand sein?</h2>
-    <p class="sub">Schätzen reicht völlig — wir runden auf passende Module.</p>
-    <div class="slider-block">
-      <div class="dual-slider">
-        <div class="dual-label"><span>Breite</span><b id="widthVal">4.0 m</b></div>
-        <input type="range" id="widthSlider" min="1" max="15" value="4" step="0.5">
+  <section class="wrap">
+    <div class="sec-head"><h2>Von der Idee zur laufenden Wand</h2></div>
+    <ol class="steps">
+      <li><h3>Konfigurieren</h3><p>Einsatzort, Abstand und Größe wählen. Die passende Auflösung schlagen wir vor.</p></li>
+      <li><h3>Angebot bestätigen</h3><p>Du bekommst die Packliste als verbindliches Angebot und klärst offene Fragen mit uns.</p></li>
+      <li><h3>Lieferung erhalten</h3><p>Die Spedition bringt das komplette Paket an deine Adresse in Österreich.</p></li>
+      <li><h3>Aufbauen</h3><p>Cabinets einhängen, verriegeln, Kabel durchstecken, HDMI anschließen. Auf Wunsch bauen wir mit dir auf.</p></li>
+    </ol>
+  </section>
+
+  <section class="wrap">
+    <div class="sec-head">
+      <h2>Drei Wege zur LED-Wand</h2>
+      <p class="lead">Was du jeweils selbst erledigen musst.</p>
+    </div>
+    <div class="table-scroll">
+    <table class="compare">
+      <thead><tr><th></th><th>Direktimport aus Fernost</th><th>Klassisches Systemhaus</th><th>Paket von ledwall.at</th></tr></thead>
+      <tbody>
+        <tr><th>Preis</th><td>Niedrig, plus Fracht, Zoll und Einfuhrumsatzsteuer</td><td>Meist nur auf Anfrage</td><td>Steht auf der Seite, inklusive Lieferung</td></tr>
+        <tr><th>Zusammenstellung</th><td>Du planst Controller, Kabel und Montage selbst</td><td>Wird für dich geplant</td><td>Fertig abgestimmtes Paket</td></tr>
+        <tr><th>Reklamation</th><td>Rücksendung nach Asien, auf eigene Kosten</td><td>Ansprechpartner vor Ort</td><td>Ansprechpartner in Österreich</td></tr>
+        <tr><th>Aufbau</th><td>Allein, mit Herstellerunterlagen</td><td>Montage durch Techniker</td><td>Selbst nach deutscher Anleitung oder mit unserem Aufbau-Service</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="wrap split">
+    <div>
+      <div class="sec-head">
+        <h2>Erst rechnen, dann kaufen</h2>
+        <p class="lead">Welcher Pixelpitch reicht für deinen Abstand? Wie viele Pixel hat eine Wand mit 4 × 2,5 m, was wiegt sie und wie viel Strom braucht sie? Der Rechner beantwortet das ohne Anmeldung.</p>
       </div>
-      <div class="dual-slider">
-        <div class="dual-label"><span>Höhe</span><b id="heightVal">2.5 m</b></div>
-        <input type="range" id="heightSlider" min="1" max="8" value="2.5" step="0.5">
+      <a class="btn" href="rechner.html">LED-Wand-Rechner öffnen</a>
+    </div>
+    <div>
+      <h2 style="font-size:1.35rem; margin-bottom:14px">Aus dem Ratgeber</h2>
+      <div class="art-list">
+        <a href="ratgeber/pixelpitch.html"><h3>Pixelpitch einfach erklärt</h3><span>5 Min.</span><p>Was P2.6 und P3.9 bedeuten und welcher Abstand dazu passt.</p></a>
+        <a href="ratgeber/led-wand-kosten.html"><h3>Was kostet eine LED-Wand?</h3><span>6 Min.</span><p>Preise je Quadratmeter und die Posten, die oft vergessen werden.</p></a>
+        <a href="ratgeber/import-aus-china.html"><h3>LED-Wand selbst importieren</h3><span>6 Min.</span><p>Was beim Direktkauf in Fernost auf dich zukommt.</p></a>
       </div>
-      <div class="range-labels" style="margin-top:16px;">
-        <span>Gesamtfläche</span>
-        <span class="val" id="areaVal" style="color:var(--accent); font-family:'JetBrains Mono',monospace;">10.0 m²</span>
+      <p style="margin-top:16px"><a href="ratgeber/index.html"><b>Alle Artikel</b></a></p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="cta-band">
+      <div>
+        <h2>Deine Wand in zwei Minuten durchgerechnet</h2>
+        <p class="muted" style="margin-top:8px">Mit Packliste, Gewicht, Strombedarf und Preis.</p>
       </div>
+      <a class="btn btn-main" href="konfigurator.html">Wand konfigurieren</a>
     </div>
-  </div>
+  </section>
 
-  <!-- ═══════════ STEP 5: Montagehöhe ═══════════ -->
-  <div class="step" data-step="mountHeight">
-    <span class="eyebrow step-eyebrow"></span>
-    <h2>Wie hoch über dem Boden hängt die Wand?</h2>
-    <p class="sub">Die Unterkante der Wand — wichtig für Sichtlinien und Befestigung.</p>
-    <div class="slider-block">
-      <div class="slider-readout" id="mountHReadout">0,0<small>Meter</small></div>
-      <div class="slider-caption" id="mountHCaption">Direkt auf dem Boden stehend</div>
-      <input type="range" id="mountHSlider" min="0" max="6" value="0" step="0.25">
-      <div class="range-labels"><span>0 m</span><span>6 m</span></div>
-    </div>
-  </div>
-
-  <!-- ═══════════ STEP 6: Himmelsrichtung (nur outdoor) ═══════════ -->
-  <div class="step" data-step="orientation">
-    <span class="eyebrow step-eyebrow"></span>
-    <h2>In welche Richtung zeigt die Wand?</h2>
-    <p class="sub">Wichtig bei Außenwänden, da Sonneneinstrahlung die Lesbarkeit beeinflusst.</p>
-    <div class="opt-grid two" id="optOrientation">
-      <div class="opt" data-value="n"><div class="ic">⬆️</div><div class="lbl">Norden</div><div class="check">✓</div></div>
-      <div class="opt" data-value="ne"><div class="ic">↗️</div><div class="lbl">Nordosten</div><div class="check">✓</div></div>
-      <div class="opt" data-value="e"><div class="ic">➡️</div><div class="lbl">Osten</div><div class="check">✓</div></div>
-      <div class="opt" data-value="se"><div class="ic">↘️</div><div class="lbl">Südosten</div><div class="check">✓</div></div>
-      <div class="opt" data-value="s"><div class="ic">⬇️</div><div class="lbl">Süden</div><div class="check">✓</div></div>
-      <div class="opt" data-value="sw"><div class="ic">↙️</div><div class="lbl">Südwesten</div><div class="check">✓</div></div>
-      <div class="opt" data-value="w"><div class="ic">⬅️</div><div class="lbl">Westen</div><div class="check">✓</div></div>
-      <div class="opt" data-value="nw"><div class="ic">↖️</div><div class="lbl">Nordwesten</div><div class="check">✓</div></div>
-    </div>
-    <p class="sub" style="margin-top:14px;">Unsicher? Kein Problem, einfach die ungefähre Richtung wählen.</p>
-  </div>
-
-  <!-- ═══════════ STEP 7: Mieten / Kaufen ═══════════ -->
-  <div class="step" data-step="model">
-    <span class="eyebrow step-eyebrow"></span>
-    <h2>Mieten oder kaufen?</h2>
-    <p class="sub">Bei kurzfristigem Bedarf lohnt sich meist die Miete.</p>
-    <div class="opt-grid two" id="optModel">
-      <div class="opt" data-value="rent"><div class="ic">📅</div><div class="lbl">Mieten</div><div class="desc">Tage / Wochen</div></div>
-      <div class="opt" data-value="buy"><div class="ic">🏗️</div><div class="lbl">Kaufen</div><div class="desc">Feste Installation</div></div>
-    </div>
-    <div id="rentDaysWrap" style="display:none; margin-top:16px;">
-      <div class="slider-block">
-        <div class="slider-readout" id="daysReadout">3<small>Tage</small></div>
-        <div class="slider-caption">Mietdauer inkl. Auf-/Abbau</div>
-        <input type="range" id="daysSlider" min="1" max="30" value="3" step="1">
-        <div class="range-labels"><span>1 Tag</span><span>30 Tage</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════ STEP 8: Montage / Aufbau ═══════════ -->
-  <div class="step" data-step="installation">
-    <span class="eyebrow step-eyebrow"></span>
-    <h2>Wie soll die Wand befestigt werden?</h2>
-    <p class="sub">Nur eine Einschätzung — die Technik klären wir später im Detail.</p>
-    <div class="opt-grid two" id="optMountType">
-      <div class="opt" data-value="wall"><div class="ic">🧱</div><div class="lbl">An Wand</div></div>
-      <div class="opt" data-value="ground"><div class="ic">🪜</div><div class="lbl">Freistehend / Boden</div></div>
-      <div class="opt" data-value="truss"><div class="ic">🏗️</div><div class="lbl">Hängend / Traverse</div></div>
-      <div class="opt" data-value="facade"><div class="ic">🏢</div><div class="lbl">Fassade / Dach</div></div>
-    </div>
-    <p class="sub" style="margin-top:22px; margin-bottom:10px;">Ist bereits eine Halterung oder Unterkonstruktion vorhanden?</p>
-    <div class="opt-grid two" id="optStructure">
-      <div class="opt" data-value="yes"><div class="ic">✅</div><div class="lbl">Ja</div></div>
-      <div class="opt" data-value="no"><div class="ic">➖</div><div class="lbl">Nein</div></div>
-      <div class="opt" data-value="unsure"><div class="ic">❔</div><div class="lbl">Weiß ich nicht</div></div>
-    </div>
-    <div class="field" style="margin-top:22px;">
-      <label>Aufbauort (Adresse oder Ort, optional)</label>
-      <input type="text" id="inpLocation" placeholder="z. B. Marktplatz, Musterstadt">
-    </div>
-  </div>
-
-  <!-- ═══════════ STEP 9: Kontakt ═══════════ -->
-  <div class="step" data-step="contact">
-    <span class="eyebrow step-eyebrow"></span>
-    <h2>Letzter Schritt — wohin mit dem Angebot?</h2>
-    <p class="sub">Wir senden Ihnen die Detailkalkulation. Keine Spam-Anrufe, versprochen.</p>
-    <div class="field">
-      <label>Name</label>
-      <input type="text" id="inpName" placeholder="Max Mustermann">
-    </div>
-    <div class="field">
-      <label>Firma (optional)</label>
-      <input type="text" id="inpCompany" placeholder="Mustermann GmbH">
-    </div>
-    <div class="field">
-      <label>E-Mail</label>
-      <input type="email" id="inpEmail" placeholder="max@firma.de">
-    </div>
-    <div class="field">
-      <label>Telefon (optional)</label>
-      <input type="tel" id="inpPhone" placeholder="+49 ...">
-    </div>
-  </div>
-
-  <!-- ═══════════ RESULT ═══════════ -->
-  <div class="step" data-step="result">
-    <span class="eyebrow">Ihr Ergebnis</span>
-    <h2 id="resultHeadline">Ihre individuelle Einschätzung</h2>
-    <p class="sub">Unverbindlich &amp; automatisch berechnet — ein Mensch prüft das final.</p>
-
-    <div class="offer-card">
-      <div class="offer-top">
-        <div>
-          <div class="tag">GESCHÄTZTER PREIS</div>
-          <div class="offer-price" id="offerPrice">– €<small id="offerPriceUnit"></small></div>
-          <div class="offer-sub" id="offerSub"></div>
-        </div>
-      </div>
-      <div class="spec-list" id="specList"></div>
-    </div>
-
-    <div class="disclaimer">
-      <b>Hinweis:</b> Dies ist eine automatische Richtpreis-Schätzung auf Basis Ihrer Angaben.
-      Die finale Bestätigung inkl. Verfügbarkeit erfolgt nach Prüfung durch unser Team —
-      derzeit ohne Versand, das folgt in der nächsten Ausbaustufe (E-Mail / SMS-Verifizierung).
-    </div>
-
-    <button class="restart" id="restartBtn">Konfiguration neu starten</button>
-  </div>
-
-  <!-- ═══════════ NAV BUTTONS ═══════════ -->
-  <div class="nav-row" id="navRow">
-    <button class="btn btn-ghost" id="backBtn">←</button>
-    <button class="btn btn-primary" id="nextBtn">Weiter</button>
-  </div>
-
-</div>
-
-<!-- JS — load order matters: state → pricing → navigation → validation → selectors → sliders → preview → offer → main -->
-<script src="js/state.js"></script>
-<script src="js/pricing.js"></script>
-<script src="js/navigation.js"></script>
-<script src="js/validation.js"></script>
-<script src="js/selectors.js"></script>
-<script src="js/sliders.js"></script>
-<script src="js/preview.js"></script>
-<script src="js/offer.js"></script>
-<script src="js/main.js"></script>
+</main>
+<script src="js/data.js"></script>
+<script src="js/calc.js"></script>
+<script src="js/site.js"></script>
+<script src="js/ledwall.js"></script>
+<script src="js/pakete.js"></script>
+<script>
+  mountLedWall(document.getElementById('heroWall'), {
+    cols: 8, rows: 4, dots: 20,
+    words: ['Servus.', '4 × 2 m', 'P2.6', '32 Cabinets', 'aufbaufertig'],
+  });
+  const heroPk = buildPackage({ env: 'indoor', pitch: 2.6, w: 4, h: 2, mount: 'hang', cases: true });
+  document.getElementById('heroPrice').textContent = `Diese Wand als Paket: ${fmtEur(heroPk.net)} netto`;
+</script>
 </body>
 </html>

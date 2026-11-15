@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LED-Wand-Konfigurator mit Sofortpreis | ledwall.at</title>
+<meta name="description" content="LED-Wand in zwei Minuten konfigurieren: Größe, Pixelpitch und Aufbau wählen, Packliste und Preis sofort sehen.">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<main id="inhalt">
+  <div class="wrap page-head">
+    <h1>Wand konfigurieren</h1>
+    <p class="lead">Vier Angaben, dann steht dein Paket mit Packliste und Preis.</p>
+  </div>
+
+  <div class="wrap kf">
+    <form class="kf-form" id="kfForm" novalidate>
+
+      <div class="kf-block">
+        <h2><span>1</span>Wo steht die Wand?</h2>
+        <fieldset class="choice">
+          <legend class="hint">Außen braucht die Wand mehr Helligkeit und Schutz gegen Regen.</legend>
+          <label><input type="radio" name="env" value="indoor" checked><span><b>Innen</b><small>Halle, Saal, Geschäft, Büro</small></span></label>
+          <label><input type="radio" name="env" value="outdoor"><span><b>Außen</b><small>Platz, Bühne im Freien, Fassade</small></span></label>
+        </fieldset>
+      </div>
+
+      <div class="kf-block">
+        <h2><span>2</span>Wie nah stehen die Zuschauer?</h2>
+        <div class="range-row">
+          <label for="dist">Kleinster Abstand zwischen Publikum und Wand</label>
+          <input type="range" id="dist" min="1" max="20" step="0.5" value="3">
+          <output id="distOut" for="dist"></output>
+        </div>
+        <fieldset class="choice" id="pitchChoice">
+          <legend class="legend">Pixelpitch</legend>
+        </fieldset>
+        <p class="hint" id="pitchHint"></p>
+      </div>
+
+      <div class="kf-block">
+        <h2><span>3</span>Wie groß soll sie sein?</h2>
+        <p class="hint">Ein Cabinet misst 50 × 50 cm, daher geht es in 50-cm-Schritten.</p>
+        <div class="range-row">
+          <label for="w">Breite</label>
+          <input type="range" id="w" min="0.5" max="12" step="0.5" value="4">
+          <output id="wOut" for="w"></output>
+        </div>
+        <div class="range-row">
+          <label for="h">Höhe</label>
+          <input type="range" id="h" min="0.5" max="6" step="0.5" value="2">
+          <output id="hOut" for="h"></output>
+        </div>
+      </div>
+
+      <div class="kf-block">
+        <h2><span>4</span>Wie wird sie aufgebaut?</h2>
+        <fieldset class="choice" id="mountChoice">
+          <legend class="hint">Das passende Montage-Set kommt ins Paket.</legend>
+        </fieldset>
+        <label class="check"><input type="checkbox" id="cases" checked><span><b>Flightcases dazu</b><small>Sinnvoll, wenn die Wand öfter auf- und abgebaut oder transportiert wird.</small></span></label>
+        <label class="check"><input type="checkbox" id="service"><span><b>Aufbau und Einschulung vor Ort</b><small id="serviceHint"></small></span></label>
+      </div>
+
+      <div class="kf-block" id="packliste">
+        <h2><span>5</span>Dein Paket</h2>
+        <div id="warnings"></div>
+        <div class="slip">
+          <div class="slip-head"><b id="slipTitle"></b><span id="slipMeta"></span></div>
+          <table>
+            <thead><tr><th>Menge</th><th>Position</th><th>Netto</th></tr></thead>
+            <tbody id="slipBody"></tbody>
+            <tfoot id="slipFoot"></tfoot>
+          </table>
+        </div>
+        <div class="btn-row no-print">
+          <button type="button" class="btn" id="printBtn">Packliste drucken</button>
+          <button type="button" class="btn" id="linkBtn">Link zu dieser Wand kopieren</button>
+        </div>
+      </div>
+
+      <div class="kf-block no-print">
+        <h2>Paket anfragen</h2>
+        <p class="hint">Wir prüfen deine Zusammenstellung und schicken dir ein verbindliches Angebot. Die Anfrage verpflichtet dich zu nichts.</p>
+        <div class="form-grid">
+          <div class="field"><label for="fName">Name</label><input type="text" id="fName" autocomplete="name" required></div>
+          <div class="field"><label for="fCompany">Firma oder Verein <span class="hint">(optional)</span></label><input type="text" id="fCompany" autocomplete="organization"></div>
+          <div class="field"><label for="fEmail">E-Mail</label><input type="email" id="fEmail" autocomplete="email" required></div>
+          <div class="field"><label for="fPhone">Telefon <span class="hint">(optional)</span></label><input type="tel" id="fPhone" autocomplete="tel"></div>
+          <div class="field full"><label for="fPlace">Lieferort mit Postleitzahl</label><input type="text" id="fPlace" autocomplete="postal-code" placeholder="z. B. 4020 Linz"></div>
+          <div class="field full"><label for="fMsg">Anmerkung <span class="hint">(optional)</span></label><textarea id="fMsg" placeholder="Wofür ist die Wand gedacht? Gibt es einen Wunschtermin?"></textarea></div>
+        </div>
+        <p class="warn" id="formError" hidden></p>
+        <div class="btn-row">
+          <button type="submit" class="btn btn-main">Anfrage per E-Mail senden</button>
+        </div>
+        <p class="hint" id="formNote">Öffnet dein E-Mail-Programm mit der fertigen Anfrage samt Packliste.</p>
+      </div>
+    </form>
+
+    <aside class="kf-side" aria-label="Vorschau und Preis">
+      <div class="preview">
+        <div class="stage-inner" id="pvStage">
+          <div class="stage-wall" id="pvWall"><canvas id="pvCanvas" role="img" aria-label="Maßstabsgetreue Vorschau der konfigurierten LED-Wand"></canvas></div>
+          <img class="stage-figure" id="pvHuman" src="assets/human.png" alt="">
+        </div>
+        <div class="stage-floor"></div>
+        <div class="stage-caption"><span id="pvSize"></span><span>Person: 1,70 m</span></div>
+      </div>
+      <div class="sum">
+        <div class="hint">Paketpreis netto, inkl. Lieferung</div>
+        <div class="sum-price" id="sumPrice"></div>
+        <div class="hint" id="sumGross"></div>
+        <dl class="facts" id="sumFacts"></dl>
+        <a class="btn btn-main" href="#packliste" style="width:100%; margin-top:16px">Zur Packliste</a>
+      </div>
+    </aside>
+  </div>
+
+  <div class="mobile-bar no-print">
+    <div><b id="barPrice"></b><small>netto, inkl. Lieferung</small></div>
+    <a class="btn btn-main" href="#packliste">Zur Packliste</a>
+  </div>
+</main>
+<script src="js/data.js"></script>
+<script src="js/calc.js"></script>
+<script src="js/site.js"></script>
+<script src="js/ledwall.js"></script>
+<script src="js/konfigurator.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LED-Wand-Rechner: Pixelpitch, Auflösung, Strom und Gewicht | ledwall.at</title>
+<meta name="description" content="Kostenloser Rechner für LED-Wände: passenden Pixelpitch zum Betrachtungsabstand finden, Auflösung, Gewicht, Stromverbrauch und Stromkosten berechnen.">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<main id="inhalt">
+  <div class="wrap page-head">
+    <h1>LED-Wand-Rechner</h1>
+    <p class="lead">Pixelpitch, Auflösung, Gewicht und Strom für jede Wandgröße. Funktioniert für jede LED-Wand aus 50-cm-Cabinets, egal wo du sie kaufst.</p>
+  </div>
+
+  <div class="wrap calc">
+    <form class="calc-in" id="rcForm">
+      <fieldset class="choice">
+        <legend class="legend">Einsatzort</legend>
+        <label><input type="radio" name="env" value="indoor" checked><span><b>Innen</b></span></label>
+        <label><input type="radio" name="env" value="outdoor"><span><b>Außen</b></span></label>
+      </fieldset>
+      <div class="range-row">
+        <label for="rcDist">Kleinster Betrachtungsabstand</label>
+        <input type="range" id="rcDist" min="1" max="20" step="0.5" value="4">
+        <output id="rcDistOut"></output>
+      </div>
+      <div class="range-row">
+        <label for="rcW">Breite</label>
+        <input type="range" id="rcW" min="0.5" max="12" step="0.5" value="4">
+        <output id="rcWOut"></output>
+      </div>
+      <div class="range-row">
+        <label for="rcH">Höhe</label>
+        <input type="range" id="rcH" min="0.5" max="6" step="0.5" value="2.5">
+        <output id="rcHOut"></output>
+      </div>
+      <div class="field">
+        <label for="rcPitch">Pixelpitch</label>
+        <select id="rcPitch"></select>
+      </div>
+      <div class="form-grid">
+        <div class="field"><label for="rcHours">Betrieb pro Tag</label><input type="number" id="rcHours" min="0" max="24" step="0.5" value="8"><span class="hint">Stunden</span></div>
+        <div class="field"><label for="rcKwh">Strompreis</label><input type="number" id="rcKwh" min="0" step="0.01" value="0.25"><span class="hint">€ je kWh</span></div>
+      </div>
+    </form>
+
+    <div>
+      <h2 style="font-size:1.35rem; margin-bottom:12px">Ergebnis</h2>
+      <div class="res-grid" id="rcRes" aria-live="polite"></div>
+
+      <h2 style="font-size:1.35rem; margin:40px 0 4px">Welcher Pixelpitch passt zu <span id="rcDistLabel"></span> Abstand?</h2>
+      <p class="muted">Faustregel: Der Mindestabstand in Metern entspricht dem Pixelpitch in Millimetern. Ab dem doppelten Abstand wirkt das Bild völlig geschlossen.</p>
+      <div class="table-scroll">
+        <table class="pitch-table">
+          <thead><tr><th>Pitch</th><th>Mindestabstand</th><th>Ideal ab</th><th>Auflösung deiner Wand</th><th>Richtpreis je m²</th></tr></thead>
+          <tbody id="rcPitchRows"></tbody>
+        </table>
+      </div>
+
+      <div class="cta-band" style="margin-top:36px">
+        <div><h3>Diese Wand als Paket</h3><p class="muted" id="rcPkPrice" style="margin-top:4px"></p></div>
+        <a class="btn btn-main" id="rcToKf" href="konfigurator.html">Im Konfigurator öffnen</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="wrap article" style="padding-top:72px">
+    <h2 style="margin-top:0">So rechnet der Rechner</h2>
+    <ul>
+      <li><b>Auflösung:</b> Ein 50-cm-Cabinet hat je nach Pitch 104 bis 256 Pixel Kantenlänge. Die Auflösung der Wand ist die Anzahl der Cabinets mal Pixel je Cabinet.</li>
+      <li><b>Strom:</b> Die Spitzenleistung fällt nur bei vollflächig weißem Bild und voller Helligkeit an. Im Alltag liegt der Verbrauch bei etwa einem Drittel davon. Für die Absicherung zählt die Spitze, für die Stromrechnung der Durchschnitt.</li>
+      <li><b>Stromkreise:</b> Gerechnet wird mit 3.000 W je 16-A-Stromkreis, damit Reserve bleibt. Größere Wände hängen üblicherweise an einem CEE-Starkstromanschluss mit Verteiler.</li>
+      <li><b>Gewicht:</b> Reines Cabinet-Gewicht ohne Traverse, Ground-Stack oder Cases. Für die Statik der Aufhängung ist ein Fachbetrieb zuständig.</li>
+    </ul>
+  </section>
+</main>
+<script src="js/data.js"></script>
+<script src="js/calc.js"></script>
+<script src="js/site.js"></script>
+<script src="js/rechner.js"></script>
+</body>
+</html>
