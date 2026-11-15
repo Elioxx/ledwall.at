@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LED-Wand-Konfigurator mit Sofortpreis | ledwall.at</title>
 <meta name="description" content="LED-Wand in zwei Minuten konfigurieren: Größe, Pixelpitch und Aufbau wählen, Packliste und Preis sofort sehen.">
+<link rel="canonical" href="https://ledwall.at/konfigurator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ledwall.at">
+<meta property="og:locale" content="de_AT">
+<meta property="og:title" content="LED-Wand-Konfigurator mit Sofortpreis">
+<meta property="og:description" content="LED-Wand in zwei Minuten konfigurieren: Größe, Pixelpitch und Aufbau wählen, Packliste und Preis sofort sehen.">
+<meta property="og:url" content="https://ledwall.at/konfigurator.html">
+<meta property="og:image" content="https://ledwall.at/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
@@ -82,20 +96,21 @@
 
       <div class="kf-block no-print" id="anfrage">
         <h2>Paket anfragen</h2>
-        <p class="hint">Wir prüfen deine Zusammenstellung und schicken dir ein verbindliches Angebot. Die Anfrage verpflichtet dich zu nichts.</p>
+        <p class="hint">Wir prüfen deine Zusammenstellung und schicken dir ein verbindliches Angebot. Die Anfrage verpflichtet dich zu nichts. Unser Angebot richtet sich an Unternehmen, Vereine und öffentliche Einrichtungen.</p>
         <div class="form-grid">
           <div class="field"><label for="fName">Name</label><input type="text" id="fName" autocomplete="name" required></div>
-          <div class="field"><label for="fCompany">Firma oder Verein <span class="hint">(optional)</span></label><input type="text" id="fCompany" autocomplete="organization"></div>
+          <div class="field"><label for="fCompany">Firma, Verein oder Einrichtung</label><input type="text" id="fCompany" autocomplete="organization" required></div>
           <div class="field"><label for="fEmail">E-Mail</label><input type="email" id="fEmail" autocomplete="email" required></div>
           <div class="field"><label for="fPhone">Telefon <span class="hint">(optional)</span></label><input type="tel" id="fPhone" autocomplete="tel"></div>
           <div class="field full"><label for="fPlace">Lieferort mit Postleitzahl</label><input type="text" id="fPlace" autocomplete="postal-code" placeholder="z. B. 4020 Linz"></div>
           <div class="field full"><label for="fMsg">Anmerkung <span class="hint">(optional)</span></label><textarea id="fMsg" placeholder="Wofür ist die Wand gedacht? Gibt es einen Wunschtermin?"></textarea></div>
         </div>
-        <p class="warn" id="formError" hidden></p>
+        <input type="checkbox" id="fBot" tabindex="-1" autocomplete="off" aria-hidden="true" hidden>
+        <p class="warn" id="formError" role="alert" hidden></p>
         <div class="btn-row">
-          <button type="submit" class="btn btn-main">Anfrage per E-Mail senden</button>
+          <button type="submit" class="btn btn-main" id="sendBtn">Anfrage senden</button>
         </div>
-        <p class="hint" id="formNote">Öffnet dein E-Mail-Programm mit der fertigen Anfrage samt Packliste.</p>
+        <p class="hint" id="formNote" role="status"></p>
       </div>
     </form>
 

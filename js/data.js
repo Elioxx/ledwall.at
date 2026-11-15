@@ -4,7 +4,10 @@
 
 const SITE = {
   name: 'ledwall.at',
-  email: 'office@ledwall.at',   // Empfänger der Paket-Anfragen (mailto)
+  email: 'office@ledwall.at',   // Empfänger der Paket-Anfragen
+  // Anfrageformular: Access Key von https://web3forms.com (kostenlos, auf die Empfänger-Adresse ausgestellt).
+  // Leer = Anfrage öffnet stattdessen das E-Mail-Programm des Kunden (mailto).
+  formKey: '',
   vat: 0.20,                    // österreichische USt
 };
 

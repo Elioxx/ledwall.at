@@ -146,14 +146,21 @@
     setTimeout(() => { btn.textContent = 'Link zu dieser Wand kopieren'; }, 2500);
   });
 
-  form.addEventListener('submit', e => {
+  const sendBtn = $('sendBtn'), formNote = $('formNote');
+  const NOTE_IDLE = SITE.formKey
+    ? 'Deine Anfrage geht samt Packliste direkt an uns. Du bekommst das Angebot per E-Mail.'
+    : 'Öffnet dein E-Mail-Programm mit der fertigen Anfrage samt Packliste.';
+  formNote.textContent = NOTE_IDLE;
+
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     const err = $('formError');
-    const name = $('fName').value.trim(), email = $('fEmail').value.trim();
-    if (!name || !$('fEmail').checkValidity() || !email) {
-      err.textContent = 'Bitte gib deinen Namen und eine gültige E-Mail-Adresse an, damit wir dir das Angebot schicken können.';
+    const name = $('fName').value.trim(), company = $('fCompany').value.trim(), email = $('fEmail').value.trim();
+    const missing = !name ? 'fName' : !company ? 'fCompany' : (!email || !$('fEmail').checkValidity()) ? 'fEmail' : null;
+    if (missing) {
+      err.textContent = 'Bitte gib deinen Namen, deine Firma oder deinen Verein und eine gültige E-Mail-Adresse an, damit wir dir das Angebot schicken können.';
       err.hidden = false;
-      (name ? $('fEmail') : $('fName')).focus();
+      $(missing).focus();
       return;
     }
     err.hidden = true;
@@ -168,7 +175,7 @@
       `Summe brutto: ${fmtEur(r.gross)}`,
       '',
       `Name: ${name}`,
-      `Firma/Verein: ${$('fCompany').value.trim() || '-'}`,
+      `Firma/Verein: ${company}`,
       `E-Mail: ${email}`,
       `Telefon: ${$('fPhone').value.trim() || '-'}`,
       `Lieferort: ${$('fPlace').value.trim() || '-'}`,
@@ -177,8 +184,40 @@
       `Konfiguration: ${location.origin + location.pathname}?${configQuery(cfg)}`,
     ];
     const subject = `Anfrage LED-Wand ${fmtNum(r.w)} × ${fmtNum(r.h)} m P${fmtNum(r.pitch)}`;
-    location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
-    $('formNote').textContent = `Dein E-Mail-Programm sollte sich jetzt öffnen. Falls nicht, schreib uns direkt an ${SITE.email}.`;
+    const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+
+    // Ohne Formular-Schlüssel: E-Mail-Programm des Kunden öffnen.
+    if (!SITE.formKey) {
+      location.href = mailto;
+      formNote.textContent = `Dein E-Mail-Programm sollte sich jetzt öffnen. Falls nicht, schreib uns direkt an ${SITE.email}.`;
+      return;
+    }
+
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Wird gesendet …';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: SITE.formKey,
+          subject,
+          from_name: `${name} (${company})`,
+          name, email,
+          message: lines.join('\n'),
+          botcheck: $('fBot').checked,
+        }),
+      });
+      const out = await res.json();
+      if (!res.ok || !out.success) throw new Error(out.message || res.status);
+      sendBtn.textContent = 'Anfrage gesendet';
+      formNote.textContent = `Danke, ${name}. Deine Anfrage ist bei uns. Das Angebot kommt an ${email}.`;
+    } catch (ex) {
+      sendBtn.disabled = false;
+      sendBtn.textContent = 'Anfrage senden';
+      err.innerHTML = `Die Anfrage konnte nicht gesendet werden. Versuch es noch einmal oder <a href="${mailto}">schick sie per E-Mail</a>.`;
+      err.hidden = false;
+    }
   });
 
   let rz;

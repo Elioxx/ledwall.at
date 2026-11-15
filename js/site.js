@@ -53,6 +53,6 @@
         <a href="${base}datenschutz.html">Datenschutz</a>
       </div>
     </div>
-    <div class="wrap foot-note">Alle Preise in Euro, netto zuzüglich 20 % USt.</div>`;
+    <div class="wrap foot-note">Alle Preise in Euro, netto zuzüglich 20 % USt. Angebot für Unternehmen, Vereine und öffentliche Einrichtungen.</div>`;
   document.body.append(footer);
 })();
