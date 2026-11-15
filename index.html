@@ -7,36 +7,51 @@
 <meta name="description" content="LED-Wände als aufbaufertiges Paket: Cabinets, Controller, Montage-Set und Kabel in einer Lieferung. Preis sofort im Konfigurator berechnen.">
 <link rel="stylesheet" href="css/site.css">
 <style>
-  .hero-wall { width: min(900px, 76vw); }
-  .hero-figure { height: calc(min(900px, 76vw) * 0.425); width: auto; }
+  .hero { background: var(--cab); color: #fff; overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 48px; align-items: center; padding: 64px 0 0; }
+  .hero h1 { font-size: clamp(2rem, 4.3vw, 3.5rem); margin-bottom: 20px; }
+  .hero .lead { color: #b9bec6; margin-bottom: 26px; }
+  .hero .btn { border-color: #fff; color: #fff; }
+  .hero .btn:hover { background: #fff; color: var(--ink); }
+  .hero .btn-main { border-color: var(--rot); }
+  .hero .btn-main:hover { background: var(--rot-dark); border-color: var(--rot-dark); color: #fff; }
+  .hero-scene { display: flex; align-items: flex-end; gap: 14px; padding-bottom: 14%; position: relative; }
+  .hero-wallbox { flex: 1; min-width: 0; position: relative; }
+  .hero-wallbox canvas { width: 100%; position: relative; }
+  #heroGlow { position: absolute; inset: 6%; border-radius: 50%; transition: box-shadow .6s linear; }
+  #heroMirror { position: absolute; left: 0; top: 100%; transform: scaleY(-1); opacity: .32; filter: blur(5px);
+    -webkit-mask-image: linear-gradient(to top, #000, transparent 55%); mask-image: linear-gradient(to top, #000, transparent 55%); }
+  .hero-figure { height: auto; width: 6.3%; flex: none; opacity: .85; }
+  .hero-note { color: #8d939c; font-size: .88rem; padding: 0 0 22px; text-align: right; }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 32px; padding-top: 40px; } }
 </style>
+
 </head>
 <body>
 <main id="inhalt">
 
-  <div class="stage">
-    <div class="wrap">
-      <div class="stage-inner">
-        <div class="stage-wall hero-wall"><canvas id="heroWall" role="img" aria-label="Animierte Darstellung einer LED-Wand aus 32 Cabinets, 4 mal 2 Meter"></canvas></div>
-        <img class="stage-figure hero-figure" src="assets/human.png" alt="" width="318" height="1118">
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>LED-Wände als fertiges Paket. Auspacken, aufbauen, einschalten.</h1>
+        <p class="lead">Du sagst uns Größe und Einsatzort. Wir liefern alles, was die Wand zum Laufen braucht, in einer Sendung nach ganz Österreich. Den Preis siehst du sofort.</p>
+        <div class="btn-row">
+          <a class="btn btn-main" href="konfigurator.html">Wand konfigurieren</a>
+          <a class="btn" href="pakete.html">Fertige Pakete ansehen</a>
+        </div>
+      </div>
+      <div>
+        <div class="hero-scene">
+          <div class="hero-wallbox">
+            <div id="heroGlow"></div>
+            <canvas id="heroWall" role="img" aria-label="Laufende LED-Wand mit wechselnden Inhalten: Alpenpanorama, Bühnenshow, Anzeigetafel und Präsentation"></canvas>
+            <canvas id="heroMirror" aria-hidden="true"></canvas>
+          </div>
+          <img class="hero-figure" src="assets/human.png" alt="" width="318" height="1118">
+        </div>
       </div>
     </div>
-    <div class="stage-floor"></div>
-    <div class="wrap stage-caption">
-      <span>Maßstabsgetreu: 4 × 2 m aus 32 Cabinets, daneben eine Person mit 1,70 m</span>
-      <span id="heroPrice"></span>
-    </div>
-  </div>
-
-  <div class="wrap hero-text">
-    <h1>LED-Wände als fertiges Paket. Auspacken, zusammenstecken, einschalten.</h1>
-    <div>
-      <p class="lead">Du sagst uns Größe und Einsatzort. Wir liefern alles, was die Wand zum Laufen braucht, in einer Sendung nach ganz Österreich. Den Preis siehst du sofort.</p>
-      <div class="btn-row">
-        <a class="btn btn-main" href="konfigurator.html">Wand konfigurieren</a>
-        <a class="btn" href="pakete.html">Fertige Pakete ansehen</a>
-      </div>
-    </div>
+    <div class="wrap hero-note" id="heroPrice"></div>
   </div>
 
   <section class="wrap">
@@ -130,11 +145,12 @@
 <script src="js/pakete.js"></script>
 <script>
   mountLedWall(document.getElementById('heroWall'), {
-    cols: 8, rows: 4, dots: 20,
-    words: ['Servus.', '4 × 2 m', 'P2.6', '32 Cabinets', 'aufbaufertig'],
+    cols: 8, rows: 4,
+    mirror: document.getElementById('heroMirror'),
+    glow: document.getElementById('heroGlow'),
   });
   const heroPk = buildPackage({ env: 'indoor', pitch: 2.6, w: 4, h: 2, mount: 'hang', cases: true });
-  document.getElementById('heroPrice').textContent = `Diese Wand als Paket: ${fmtEur(heroPk.net)} netto`;
+  document.getElementById('heroPrice').textContent = `Im Bild: 4 × 2 m neben einer Person mit 1,70 m. Als Paket ${fmtEur(heroPk.net)} netto.`;
 </script>
 </body>
 </html>

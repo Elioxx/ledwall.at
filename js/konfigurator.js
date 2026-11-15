@@ -68,7 +68,7 @@
     $('pvWall').style.width = Math.floor(r.w * scale) + 'px';
     $('pvHuman').style.height = Math.floor(HUMAN_M * scale) + 'px';
     $('pvHuman').style.width = Math.floor(HUMAN_M * scale * humanRatio) + 'px';
-    const opts = { cols: r.cols, rows: r.rows, dots: dotsForPx(r.pxPerCab), warm: r.env === 'outdoor' };
+    const opts = { cols: r.cols, rows: r.rows, seams: true };
     if (wall) wall.update(opts); else wall = mountLedWall($('pvCanvas'), opts);
     $('pvSize').textContent = `${fmtNum(r.w)} × ${fmtNum(r.h)} m · ${r.cabinets} Cabinets · P${fmtNum(r.pitch)}`;
   }
