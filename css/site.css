@@ -263,3 +263,4 @@ input[type=range] { width: 100%; accent-color: var(--rot); height: 28px; margin:
   .site-head, .site-foot, .kf-form, .preview, .mobile-bar, .no-print { display: none !important; }
   .kf { display: block; }
 }
+#anfrage, #packliste { scroll-margin-top: 78px; }
